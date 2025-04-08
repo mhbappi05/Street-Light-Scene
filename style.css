@@ -1,0 +1,281 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to top, #0b0b23, #1a1a80);
+    /* Cinematic sky */
+    overflow: hidden;
+}
+
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+/* Houses */
+.house {
+    position: absolute;
+    bottom: 350px;
+    /* Keep houses positioned correctly */
+    background: #614646;
+    /* Darker house color */
+    height: 350px;
+    /* Bigger houses */
+    width: 200px;
+    /* Bigger houses */
+    clip-path: polygon(0% 100%, 0% 35%, 50% 0%, 100% 35%, 100% 100%);
+    z-index: 1;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    /* Enhanced shadow for depth */
+}
+
+.house1 {
+    left: 5%;
+    width: 300px;
+    height: 250px;
+}
+
+.house2 {
+    left: 37%;
+    width: 450px;
+}
+
+.house3 {
+    right: 5%;
+    width: 350px;
+}
+
+.house4 {
+    right: 22%;
+    width: 380px;
+    height: 250px;
+}
+
+.house5 {
+    left: 20%;
+    width: 380px;
+    height: 200px;
+}
+
+.house::before {
+    content: '';
+    position: absolute;
+    background: yellow;
+    width: 18px;
+    /* Slightly bigger window lights */
+    height: 18px;
+    top: 105px;
+    /* Center window vertically */
+    left: 121px;
+    /* Center window horizontally */
+    box-shadow:
+        30px 0 yellow,
+        0 30px yellow,
+        30px 30px yellow;
+}
+
+/* Full-Width Ground */
+.ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 350px;
+    /* Larger ground to match bigger houses */
+    background: #66663f;
+    /* Lighter and more natural ground color */
+    z-index: 0;
+    overflow: hidden;
+}
+
+.ground::before,
+.ground::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    border: 6px solid #3d3d3d;
+}
+
+.ground::before {
+    width: 85%;
+    height: 160px;
+    bottom: 40px;
+}
+
+.ground::after {
+    width: 65%;
+    height: 100px;
+    bottom: 70px;
+    border-color: #2a2a2a;
+}
+
+/* Lamp Post */
+.lamp-post {
+    position: absolute;
+    bottom: 170px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 300px;
+    /* Taller lamp post */
+    background: #333;
+    z-index: 3;
+}
+
+.lamp-base {
+    position: absolute;
+    bottom: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 20px;
+    background: #2b2b2b;
+    z-index: 3;
+}
+
+.lamp-head {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 40px;
+    background: #222;
+    clip-path: polygon(0 100%, 10% 0, 90% 0, 100% 100%);
+}
+
+/* Light Beam (Adjusted) */
+.light-beam {
+    position: absolute;
+    bottom: 10px;
+    /* Position light exactly at lamp base */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+    /* Widened the light beam */
+    height: 500px;
+    /* Taller light beam */
+    background: radial-gradient(ellipse at center, rgba(255, 255, 160, 0.6), transparent 70%);
+    /* Soft and wide light */
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    z-index: 2;
+    transition: opacity 0.3s ease;
+}
+
+.off {
+    opacity: 0;
+}
+
+/* Ground Glow */
+.ground-glow {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1200px;
+    /* Wider ground glow */
+    height: 120px;
+    /* Larger glow */
+    background: radial-gradient(circle, rgba(255, 255, 160, 0.3), transparent 70%);
+    border-radius: 50%;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+}
+
+/* Moon */
+.moon {
+    position: absolute;
+    top: 10%;
+    right: 30%;
+    width: 120px;
+    height: 120px;
+    background: #f4f4f4;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    z-index: 4;
+}
+
+/* Stars */
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: #fff;
+    border-radius: 50%;
+    animation: twinkle 1.5s infinite ease-in-out;
+}
+
+/* Animation for twinkling stars */
+@keyframes twinkle {
+    0% {
+        opacity: 0.8;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 0.8;
+    }
+}
+
+/* Random star placement */
+.star1 {
+    top: 12%;
+    left: 15%;
+}
+
+.star2 {
+    top: 20%;
+    left: 35%;
+}
+
+.star3 {
+    top: 30%;
+    left: 55%;
+}
+
+.star4 {
+    top: 40%;
+    left: 70%;
+}
+
+.star5 {
+    top: 50%;
+    left: 85%;
+}
+
+.star6 {
+    top: 5%;
+    left: 45%;
+}
+
+.star7 {
+    top: 35%;
+    left: 10%;
+}
+
+.star8 {
+    top: 60%;
+    left: 25%;
+}
+
+.star9 {
+    top: 70%;
+    left: 50%;
+}
+
+.star10 {
+    top: 15%;
+    left: 80%;
+}
