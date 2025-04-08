@@ -13,12 +13,7 @@ body {
     overflow: hidden;
 }
 
-.scene {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-}
+
 
 /* Houses */
 .house {
@@ -89,7 +84,7 @@ body {
     width: 100%;
     height: 350px;
     /* Larger ground to match bigger houses */
-    background: #66663f;
+    background: #3e683b;
     /* Lighter and more natural ground color */
     z-index: 0;
     overflow: hidden;
@@ -191,19 +186,146 @@ body {
     transition: opacity 0.3s ease;
 }
 
+/* Default: night mode */
+#sky {
+    background-color: #0b0c2a;
+    height: 100%; ;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 1s;
+}
+/* Day mode */
+#sky.day {
+    background-color: #87ceeb; /* light blue */
+}
 /* Moon */
 .moon {
     position: absolute;
-    top: 10%;
-    right: 30%;
-    width: 120px;
-    height: 120px;
+    top: 20%;
+    right: -80px;  /* Start outside the screen on the right */
+    width: 80px;
+    height: 80px;
     background: #f4f4f4;
     border-radius: 50%;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
     z-index: 4;
+    opacity: 1;
+    transition: opacity 1s;
 }
 
+/* Sun */
+.sun {
+    position: absolute;
+    top: 100px;
+    left: -130px;  /* Start outside the screen on the left */
+    width: 130px;
+    height: 130px;
+    background: gold;
+    border-radius: 50%;
+    box-shadow: 0 0 30px gold;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+/* Sun appears when it's day */
+#sky.day .sun {
+    opacity: 1;
+    animation: sunRise 3s forwards ease-out;
+}
+
+/* Moon appears when it's night */
+#sky:not(.day) .moon {
+    animation: moonRise 3s forwards ease-out;
+}
+
+/* Sun rise animation */
+@keyframes sunRise {
+    0% {
+        left: -130px;
+        top: 100px;
+    }
+    100% {
+        left: 25%;
+        top: 100px;
+    }
+}
+
+/* Moon rise animation */
+@keyframes moonRise {
+    0% {
+        right: -80px;
+        top: 20%;
+    }
+    100% {
+        right: 20%;
+        top: 20%;
+    }
+}
+
+/* Day mode */
+#sky.day .moon {
+    opacity: 0; /* Hide moon in the day */
+}
+
+/* Show moon only in night mode */
+#sky:not(.day) .sun {
+    opacity: 0; /* Hide sun in night mode */
+}
+
+#sky.day .moon,
+#sky.day .star {
+    opacity: 0;
+}
+
+/* Cloud base style */
+.cloud {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 1s ease-in-out, transform 1s;
+}
+
+/* Cloud clusters */
+.cloud1 {
+    top: 60px;
+    left: 20%;
+    width: 60px;
+    height: 30px;
+    box-shadow: 30px 0px 0px #fff, 15px -10px 0px #fff;
+}
+
+.cloud2 {
+    top: 100px;
+    right: 25%;
+    width: 50px;
+    height: 25px;
+    box-shadow: 25px 0px 0px #fff, 10px -8px 0px #fff;
+}
+
+/* Show clouds only in day mode */
+#sky.day .cloud {
+    opacity: 1;
+}
+
+@keyframes floatCloud {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+}
+
+#sky.day .cloud {
+    animation: floatCloud 10s ease-in-out infinite;
+}
+
+
+/* Stars fade out in day */
+.star {
+    transition: opacity 1s;
+}
 /* Stars */
 .star {
     position: absolute;
@@ -279,3 +401,182 @@ body {
     top: 15%;
     left: 80%;
 }
+
+
+.bench-scene {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+/* Bench base */
+.bench {
+    position: relative;
+    width: 300px;
+    height: 170px;
+}
+
+/* Solid bench seat */
+.bench-seat {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    height: 12px;
+    background-color: #8B4513;
+    border: 1px solid #5c3317;
+    border-radius: 3px;
+    z-index: 1;
+}
+
+/* Optional backrest (above seat) */
+.bench-slat {
+    position: absolute;
+    bottom: 35px;
+    width: 100%;
+    height: 30px;
+    background-color: #8B4513;
+    border-radius: 2px;
+    border: 1px solid #5c3317;
+}
+
+.bench-slat:nth-child(1) {
+    bottom: 76px;
+}
+
+.bench-slat:nth-child(2) {
+    bottom: 38px;
+}
+
+
+
+/* Legs */
+.bench-legs {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bench-legs::before,
+.bench-legs::after {
+    content: "";
+    width: 6px;
+    height: 20px;
+    background-color: #5c3317;
+}
+
+/* Characters */
+.character {
+    position: absolute;
+    bottom: 24px;
+    /* So they sit on the seat */
+    width: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+}
+
+.character.girl {
+    left: 100px;
+}
+
+.character.boy {
+    right: 100px;
+}
+
+.character .head {
+    width: 38px;
+    height: 38px;
+    background-color: #ffe0bd;
+    border-radius: 50%;
+    margin-bottom: 2px;
+}
+
+.character .body {
+    width: 56px;
+    height: 76px;
+    background-color: gray;
+    border-radius: 4px;
+}
+
+.character .legs {
+    display: flex;
+    gap: 2px;
+    margin-top: -8px;
+}
+
+.character .legs::before,
+.character .legs::after {
+    content: "";
+    width: 46px;
+    height: 10px;
+    background-color: #444;
+    border-radius: 15%;
+    transform: rotate(90deg);
+}
+
+/* Girl colors */
+.character.girl .body {
+    background-color: #FF69B4;
+}
+
+.character.girl .legs::before,
+.character.girl .legs::after {
+    background-color: #D13679;
+}
+
+/* Boy colors */
+.character.boy .body {
+    background-color: #1E90FF;
+}
+
+.character.boy .legs::before,
+.character.boy .legs::after {
+    background-color: #1746A2;
+}
+
+/* Tree base style */
+.tree {
+    position: absolute;
+    bottom: 60px;
+    width: 30px;
+    height: 100px;
+    z-index: 1;
+}
+
+/* Tree trunk */
+.tree::before {
+    content: "";
+    position: absolute;
+    bottom: 50px;
+    left: 12px;
+    width: 46px;
+    height: 300px;
+    background-color: #8B5A2B;
+    border-radius: 5px;
+}
+
+/* Tree foliage */
+.tree::after {
+    content: "";
+    position: absolute;
+    bottom: 200px;
+    left: -150px;
+    width: 400px;
+    height: 350px;
+    background-color: #228B22;
+    border-radius: 50%;
+}
+
+/* Positioning individual trees */
+.tree1 {
+    left: 10%;
+}
+.tree2 {
+    right: 40%;
+}
+
